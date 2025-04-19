@@ -1,0 +1,14 @@
+## .Net AutoGen Files
+**/bin
+**/bin/
+*.bin
+**/obj
+**/obj/
+**/.vs
+**/.vs/
+*.tmp
+*.log
+*.msi
+**/.idea/
+.DS_Store
+**/.DS_Store
