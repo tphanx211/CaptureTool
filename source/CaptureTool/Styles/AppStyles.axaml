@@ -1,0 +1,61 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Background="{DynamicResource SecondaryBackground}" Padding="20">
+            <Button Classes="nav-button">
+                <StackPanel Orientation="Horizontal">
+                    <Label Classes="icon"
+                           Content="&#xe326;"/>
+                    <Label Content="Audio Capture" FontFamily="{DynamicResource Inter}"/>
+                </StackPanel>
+            </Button>
+        </Border>
+    </Design.PreviewWith>
+    
+    <Style Selector="Window">
+        <Setter Property="FontFamily" Value="{DynamicResource Inter}"/>
+        <Setter Property="Background" Value="#AA2C2C2C" /> <!-- semi-transparent gray -->
+        <Setter Property="TransparencyLevelHint" Value="AcrylicBlur" />
+        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+    </Style>
+    
+    <Style Selector="MenuItem.button">
+        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}" />
+    </Style>
+    
+    <Style Selector="Label.icon">
+        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}"></Setter>
+        <Setter Property="Margin" Value="0 1 0 0 "></Setter>
+    </Style>
+    
+    <Style Selector="TextBlock.menu">
+        <Setter Property="Foreground" Value="#99FFFFFF"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}"/>
+    </Style>
+    <Style Selector="TextBlock.menu:pointerover">
+        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}"/>
+    </Style>
+    
+    <Style Selector="Button.primary">
+        <Setter Property="Background" Value="{DynamicResource PrimaryAccent}"/>
+    </Style>
+    <Style Selector="Button.secondary">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#808080"/>
+    </Style>
+    
+    <Style Selector="Button.nav-button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="#99FFFFFF"/>
+        <Setter Property="FontWeight" Value="Normal"/>
+        <Setter Property="Padding" Value="4"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    </Style>
+    <Style Selector="Button.nav-button:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="#FFFFFFFF"/>
+    </Style>
+</Styles>

@@ -3,18 +3,114 @@
         xmlns:vm="using:CaptureTool.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="530"
+        Width="320" Height="530"
         x:Class="CaptureTool.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="CaptureTool">
 
+    
     <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+    <Grid RowDefinitions="Auto,*">
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Classes="nav-button" Background="Transparent" Margin="0 0 -5 0">
+                <Label Classes="icon" 
+                       Content="&#xE4C2;"
+                       FontFamily="{DynamicResource PhosphorBold}" FontSize="20"/>
+            </Button>
+            <Menu>
+                <MenuItem>
+                    <MenuItem.Header>
+                        <TextBlock Classes="menu" Text="&#xE270;" FontSize="20"/>
+                    </MenuItem.Header>
+                    <MenuItem Header="Options">
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox />
+                                    <TextBlock Text="Launch at Startup"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox />
+                                    <TextBlock Text="Enable Session Logging"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem Header="Open Session Log"/>
+                    </MenuItem>
+                    <MenuItem Header="Capture Options">
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox />
+                                    <TextBlock Text="Capture Labels"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox />
+                                    <TextBlock Text="Capture Keyboard Input"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem>
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox />
+                                    <TextBlock Text="Capture Special Keys"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                    </MenuItem>
+                    <MenuItem Header="Check for Updates"/>
+                    <MenuItem Header="About"/>
+                    <MenuItem Header="Exit"/>
+                </MenuItem>
+            </Menu>
+        </StackPanel>
+    
+        <Border Grid.Row="1" Margin="10 20 10 10" CornerRadius="8" Background="Black">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
+                <Image Source="/Assets/CaptureToolLogo.png"
+                       Width="70" Height="70"
+                       HorizontalAlignment="Center" />
+                
+                <TextBlock Text="Tony’s Team"
+                           FontFamily="{DynamicResource InterBold}"
+                           FontSize="16"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           Margin="0,8,0,0" />
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Classes="secondary" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                        <Label Classes="icon" Content="&#xE326;" FontFamily="{DynamicResource Phosphor}" />
+                        <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}"/>
+                        <ToggleSwitch IsChecked="True"/>
+                    </StackPanel>
+                </Button>
 
+                <Button Classes="primary" HorizontalAlignment="Stretch">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                        <Label Classes="icon" Content="&#xE3EE;" FontFamily="{DynamicResource Phosphor}" />
+                        <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Classes="secondary" Content="Sign Out" HorizontalAlignment="Stretch" FontFamily="{DynamicResource InterBold}"/>
+            </StackPanel>
+            
+            
+        </Border>
+    </Grid>
 </Window>

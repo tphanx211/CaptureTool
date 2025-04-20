@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:CaptureTool.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Width="800" Height="450"
+        Padding="10 30 10 10"
+        x:Class="CaptureTool.Views.MainWindowOld"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="CaptureTool">
+
+    
+    <Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    
+    <Border Margin="10 30 10 10" CornerRadius="8" Background="{DynamicResource PrimaryBackground}">
+        <SplitView IsPaneOpen="True"
+                   PaneBackground="Transparent"
+                   CornerRadius="8"
+                   OpenPaneLength="200"
+                   CompactPaneLength="50"
+                   DisplayMode="CompactInline">
+            <SplitView.Pane>
+                <Border Background="{DynamicResource SecondaryBackground}"
+                        CornerRadius="8">
+                    <Grid RowDefinitions="Auto,*,Auto" >
+                        <TextBlock Text="CaptureTool" 
+                                   Foreground="{DynamicResource SecondaryUnselectedText}"
+                                   HorizontalAlignment="Center"
+                                   FontWeight="Bold"
+                                   FontSize="20"
+                                   Margin="10"/>
+                        <StackPanel Grid.Row="1">
+                            <Button Classes="nav-button">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Classes="icon" Content="&#xe326;"/>
+                                    <Label Content="Audio Capture"/>
+                                </StackPanel>
+                            </Button> 
+                            <Button Classes="nav-button">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Classes="icon" Content="&#xe58C;"/>
+                                    <Label Content="Screen Capture"/>
+                                </StackPanel>
+                            </Button> 
+                            <Button Classes="nav-button">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label Classes="icon" Content="&#xe1A8;"/>
+                                    <Label Content="Transcription"/>
+                                </StackPanel>
+                            </Button> 
+                        </StackPanel>
+                        <Button Grid.Row="2" Classes="nav-button">
+                            <Label Classes="icon" Content="&#xE270;"/>
+                        </Button> 
+                    </Grid>
+                </Border>
+            </SplitView.Pane>
+            <SplitView.Content>
+                
+            </SplitView.Content>
+        </SplitView>
+    </Border>
+</Window>

@@ -11,5 +11,31 @@
   
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="Styles/AppStyles.axaml"/>
     </Application.Styles>
+             
+    <Application.Resources>
+        
+        <SolidColorBrush x:Key="WebPrimaryBackground">#ffffff</SolidColorBrush>
+        <SolidColorBrush x:Key="WebSecondaryBackground">#1f293b</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="ProgressPrimary">#35c58e</SolidColorBrush>
+        <SolidColorBrush x:Key="ProgressSecondary">#225550</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="PrimaryText">#10172a</SolidColorBrush>
+        
+        <SolidColorBrush x:Key="SecondarySelectedText">#ffffff</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryUnselectedText">#ced3dc</SolidColorBrush>
+
+       
+        <SolidColorBrush x:Key="PrimaryAccent">#4739eb</SolidColorBrush>
+        <SolidColorBrush x:Key="SecondaryAccent">#828cf8</SolidColorBrush>
+        <SolidColorBrush x:Key="SuccessColor">#00B881</SolidColorBrush>
+        
+        <FontFamily x:Key="Inter">/Assets/Fonts/Inter-Regular.ttf#inter</FontFamily>
+        <FontFamily x:Key="InterBold">/Assets/Fonts/Inter-Bold.ttf#inter</FontFamily>
+        <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
+        <FontFamily x:Key="PhosphorBold">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
+
+    </Application.Resources>
 </Application>
