@@ -1,14 +1,36 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Background="{DynamicResource SecondaryBackground}" Padding="20">
-            <Button Classes="nav-button">
-                <StackPanel Orientation="Horizontal">
-                    <Label Classes="icon"
-                           Content="&#xe326;"/>
-                    <Label Content="Audio Capture" FontFamily="{DynamicResource Inter}"/>
-                </StackPanel>
-            </Button>
+        <Border Background="Black" Padding="20" Width="320" Height="530">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
+                <Image Source="/Assets/CaptureToolLogo.png"
+                       Width="70" Height="70"
+                       HorizontalAlignment="Center" />
+                
+                <TextBlock Text="Tony’s Demo"
+                           FontFamily="{DynamicResource InterBold}"
+                           FontSize="16"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           Margin="0,8,0,0" />
+
+                <Button Classes="secondary">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                        <Label Classes="icon" Content="&#xE326;" FontFamily="{DynamicResource Phosphor}" />
+                        <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}"/>
+                        <ToggleSwitch IsChecked="True"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Classes="primary" >
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="2">
+                        <Label Classes="icon" Content="&#xE3EE;" FontFamily="{DynamicResource PhosphorFill}" />
+                        <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}" Margin="0 2  0 0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Classes="secondary" Content="Sign Out" FontFamily="{DynamicResource InterBold}"/>
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
     
@@ -37,12 +59,73 @@
         <Setter Property="FontFamily" Value="{DynamicResource Phosphor}"/>
     </Style>
     
-    <Style Selector="Button.primary">
-        <Setter Property="Background" Value="{DynamicResource PrimaryAccent}"/>
+    <Style Selector="Button">
+        <Setter Property="Foreground" Value="White"/>
     </Style>
+    
+    <!-- <Style Selector="Button.primary"> -->
+    <!--     <Setter Property="Background" Value="{DynamicResource PrimaryAccent}"/> -->
+    <!--     <Setter Property="HorizontalAlignment" Value="Stretch"/> -->
+    <!-- </Style> -->
+    <!-- <Style Selector="Button.primary:pointerover /template/ ContentPresenter"> -->
+    <!--     <Setter Property="Foreground" Value="White"/> -->
+    <!--     <Setter Property="Background" Value="{DynamicResource PrimaryAccent}"/> -->
+    <!--     <Setter Property="HorizontalAlignment" Value="Stretch"/> -->
+    <!--     <Setter Property="BorderBrush" Value="#060516"/> -->
+    <!--     <Setter Property="BorderThickness" Value="-5"/> -->
+    <!-- </Style> -->
+    
+    <Style Selector="Button.primary">
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryAccent}"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="OuterBorder"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        BorderThickness="3"
+                        CornerRadius="3">
+                    <Border Name="InnerBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Transparent"
+                            BorderThickness="3"
+                            CornerRadius="4">
+                        <ContentPresenter HorizontalAlignment="Center"
+                                          HorizontalContentAlignment="Center"
+                                          Height="30"
+                                          Padding="2 2 2 2"
+                                          VerticalAlignment="Center"
+                                          VerticalContentAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </Border>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+
+    <Style Selector="Button.primary:pointerover /template/ Border#InnerBorder">
+        <Setter Property="BorderBrush" Value="#060516" />
+    </Style>
+
+    <Style Selector="Button.primary:pressed /template/ Border#OuterBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryAccent}" />
+    </Style>
+
+    <Style Selector="Button.primary:pressed /template/ Border#InnerBorder">
+        <Setter Property="BorderBrush" Value="#060516" />
+    </Style>
+
+    
     <Style Selector="Button.secondary">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="#808080"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
     </Style>
     
     <Style Selector="Button.nav-button">
@@ -53,6 +136,7 @@
         <Setter Property="Padding" Value="4"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
     </Style>
+    
     <Style Selector="Button.nav-button:pointerover /template/ ContentPresenter">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderBrush" Value="Transparent" />

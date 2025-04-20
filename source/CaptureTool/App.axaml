@@ -28,14 +28,14 @@
         <SolidColorBrush x:Key="SecondaryUnselectedText">#ced3dc</SolidColorBrush>
 
        
-        <SolidColorBrush x:Key="PrimaryAccent">#4739eb</SolidColorBrush>
+        <SolidColorBrush x:Key="PrimaryAccent">#5648fb</SolidColorBrush>
         <SolidColorBrush x:Key="SecondaryAccent">#828cf8</SolidColorBrush>
         <SolidColorBrush x:Key="SuccessColor">#00B881</SolidColorBrush>
         
         <FontFamily x:Key="Inter">/Assets/Fonts/Inter-Regular.ttf#inter</FontFamily>
         <FontFamily x:Key="InterBold">/Assets/Fonts/Inter-Bold.ttf#inter</FontFamily>
         <FontFamily x:Key="Phosphor">/Assets/Fonts/Phosphor.ttf#Phosphor</FontFamily>
-        <FontFamily x:Key="PhosphorBold">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
+        <FontFamily x:Key="PhosphorFill">/Assets/Fonts/Phosphor-Fill.ttf#Phosphor-Fill</FontFamily>
 
     </Application.Resources>
 </Application>
