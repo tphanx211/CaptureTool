@@ -109,8 +109,13 @@ You can check progress and services inside the [`Services`](./source/CaptureTool
 ---
 
 ## 📸 Screenshots
+<p float="left">
+<img src="screenshots/MainWindow.png" alt="Main UI" width="300"/>
 
+<img src="screenshots/ButtonPressAndHold.png" alt="Button Press & Hold" width="300"/>
 
+<img src="screenshots/Menu.png" alt="Dropdown menu & CheckBox" width="400"/>
+</p>
 
 ---
 
@@ -120,12 +125,9 @@ This project was built as a reverse-engineered, developer-focused replica of the
 
 - My UI skills (restyling controls, layouts, I learned a lot of the styling along the way)
 - My ability to architect scalable cross-platform applications
+- My drive to learn on the fly, even when I initially don’t know how to do something
 - My initiative to replicate a production-grade tool with zero access to its source
 
 ---
 
-## 📬 Contact
-
-If you’re from Scribe and want to dive deeper, I’d love to walk through the code live and share my thought process.
-
-— Tony Phan
+⭐ If you're reviewing this for a technical interview — thank you!
