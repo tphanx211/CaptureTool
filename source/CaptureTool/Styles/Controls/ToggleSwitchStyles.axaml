@@ -33,33 +33,34 @@
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-    
-    <Style Selector="Window">
-        <Setter Property="FontFamily" Value="{DynamicResource Inter}"/>
-        <Setter Property="Background" Value="#AA2C2C2C" /> <!-- semi-transparent gray -->
-        <Setter Property="TransparencyLevelHint" Value="AcrylicBlur" />
-        <Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+
+    <Style Selector="ToggleSwitch /template/ ContentPresenter#PART_OffContentPresenter">
+        <Setter Property="IsVisible" Value="False"/>
+    </Style>
+    <Style Selector="ToggleSwitch /template/ ContentPresenter#PART_OnContentPresenter">
+        <Setter Property="IsVisible" Value="False"/>
+    </Style>
+    <!-- Outer background and border (OFF state) -->
+    <Style Selector="ToggleSwitch:unchecked /template/ Border#OuterBorder">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="White"/>
+    </Style>
+
+    <!-- Outer background and border (ON state) -->
+    <Style Selector="ToggleSwitch:checked /template/ Border#SwitchKnobBounds">
+        <Setter Property="Background" Value="{DynamicResource PrimaryAccent}"/>
+        <Setter Property="BorderBrush" Value="White"/>
     </Style>
     
-    <Style Selector="MenuItem.button">
-        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}" />
+    <!-- Knob OFF -->
+    <Style Selector="ToggleSwitch:unchecked /template/ Ellipse#SwitchKnobOff">
+        <Setter Property="Fill" Value="White"/>
+        <Setter Property="Opacity" Value="1"/>
+    </Style>
+
+    <!-- Knob ON -->
+    <Style Selector="ToggleSwitch /template/ Ellipse#SwitchKnobOn">
+        <Setter Property="Fill" Value="White"/>
     </Style>
     
-    <Style Selector="Label.icon">
-        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}"></Setter>
-        <Setter Property="Margin" Value="0 1 0 0 "></Setter>
-    </Style>
-    
-    <Style Selector="TextBlock.menu">
-        <Setter Property="Foreground" Value="#99FFFFFF"/>
-        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}"/>
-    </Style>
-    <Style Selector="TextBlock.menu:pointerover">
-        <Setter Property="Foreground" Value="#FFFFFFFF"/>
-        <Setter Property="FontFamily" Value="{DynamicResource Phosphor}"/>
-    </Style>
-    
-    <StyleInclude Source="Controls/ButtonStyles.axaml"/>
-    <StyleInclude Source="Controls/ToggleSwitchStyles.axaml"/>
-    <StyleInclude Source="Controls/CheckBoxStyles.axaml"/>
 </Styles>

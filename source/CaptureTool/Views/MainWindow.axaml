@@ -92,11 +92,11 @@
                            HorizontalAlignment="Center"
                            Margin="0,8,0,0" />
 
-                <Button Classes="secondary">
+                <Button Classes="secondary" Width="270">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
-                        <Label Classes="icon" Content="&#xE326;" FontFamily="{DynamicResource Phosphor}" />
-                        <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}"/>
-                        <ToggleSwitch IsChecked="True"/>
+                        <Label Classes="icon" Content="&#xE326;" FontFamily="{DynamicResource Phosphor}" Margin="0 3  0 0"/>
+                        <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}" Margin="0 4  0 0"/>
+                        <ToggleSwitch IsChecked="True" Margin="0 -5  0 0"/>
                     </StackPanel>
                 </Button>
 
