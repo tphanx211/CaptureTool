@@ -4,8 +4,10 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using CaptureTool.Services.Settings;
 using CaptureTool.ViewModels;
 using CaptureTool.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CaptureTool;
 
@@ -18,14 +20,26 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        DisableAvaloniaDataAnnotationValidation();
+            
+        var collection = new ServiceCollection();
+        collection.AddSingleton<ISettingsService, SettingsService>();
+        collection.AddSingleton<MainWindowViewModel>();
+        
+        var services = collection.BuildServiceProvider();
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
-            DisableAvaloniaDataAnnotationValidation();
+            var settingsService = services.GetRequiredService<ISettingsService>();
+                
+            desktop.Exit += (_, _) =>
+            {
+                settingsService.Save();
+            };
+            
             desktop.MainWindow = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = services.GetRequiredService<MainWindowViewModel>()
             };
         }
 
