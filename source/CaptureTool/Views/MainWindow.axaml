@@ -80,10 +80,11 @@
         </StackPanel>
     
         <Border Grid.Row="1" Margin="10 20 10 10" CornerRadius="8" Background="Black">
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
                 <Image Source="/Assets/CaptureToolLogo.png"
-                       Width="70" Height="70"
-                       HorizontalAlignment="Center" />
+                       Width="60" Height="60"
+                       HorizontalAlignment="Center" 
+                       Margin="0 50 0 40"/>
                 
                 <TextBlock Text="Tony’s Demo"
                            FontFamily="{DynamicResource InterBold}"
@@ -91,23 +92,30 @@
                            Foreground="White"
                            HorizontalAlignment="Center"
                            Margin="0,8,0,0" />
+                <Border Margin="0 25 0 110">
+                    <StackPanel>
+                        <Button Classes="secondary" Width="270">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                                <Label Classes="icon" 
+                                       Content="&#xE326;" 
+                                       FontFamily="{DynamicResource Phosphor}" 
+                                       FontSize="16"
+                                       Margin="0 3  0 0"/>
+                                <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}" Margin="0 4  0 0"/>
+                                <ToggleSwitch IsChecked="True" Margin="0 -5  0 0"/>
+                            </StackPanel>
+                        </Button>
 
-                <Button Classes="secondary" Width="270">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
-                        <Label Classes="icon" Content="&#xE326;" FontFamily="{DynamicResource Phosphor}" Margin="0 3  0 0"/>
-                        <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}" Margin="0 4  0 0"/>
-                        <ToggleSwitch IsChecked="True" Margin="0 -5  0 0"/>
+                        <Button Classes="primary" >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="2">
+                                <Label Classes="icon" Content="&#xE3EE;" FontFamily="{DynamicResource PhosphorFill}" />
+                                <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}" Margin="0 2  0 0"/>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Classes="secondary" Content="Sign Out" FontFamily="{DynamicResource InterBold}"/>
                     </StackPanel>
-                </Button>
-
-                <Button Classes="primary" >
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="2">
-                        <Label Classes="icon" Content="&#xE3EE;" FontFamily="{DynamicResource PhosphorFill}" />
-                        <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}" Margin="0 2  0 0"/>
-                    </StackPanel>
-                </Button>
-
-                <Button Classes="secondary" Content="Sign Out" FontFamily="{DynamicResource InterBold}"/>
+                </Border>
             </StackPanel>
             
             
