@@ -1,8 +1,29 @@
 <Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
-        <Border Padding="20">
-            <!-- Add Controls for Previewer Here -->
+        <Border Padding="20" Background="Black">
+            <StackPanel>
+                <Button Classes="secondary" Width="270">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
+                        <Label Classes="icon" 
+                               Content="&#xE326;" 
+                               FontFamily="{DynamicResource Phosphor}" 
+                               FontSize="16"
+                               Margin="0 3  0 0"/>
+                        <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}" Margin="0 4  0 0"/>
+                        <ToggleSwitch IsChecked="True" Margin="0 -5  0 0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Classes="primary" >
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="2">
+                        <Label Classes="icon" Content="&#xE3EE;" FontFamily="{DynamicResource PhosphorFill}" />
+                        <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}" Margin="0 2  0 0"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Classes="secondary" Content="Sign Out" FontFamily="{DynamicResource InterBold}"/>
+            </StackPanel>
         </Border>
     </Design.PreviewWith>
 

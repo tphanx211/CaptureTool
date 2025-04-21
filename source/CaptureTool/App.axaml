@@ -26,7 +26,6 @@
         
         <SolidColorBrush x:Key="SecondarySelectedText">#ffffff</SolidColorBrush>
         <SolidColorBrush x:Key="SecondaryUnselectedText">#ced3dc</SolidColorBrush>
-
        
         <SolidColorBrush x:Key="PrimaryAccent">#5648fb</SolidColorBrush>
         <SolidColorBrush x:Key="SecondaryAccent">#828cf8</SolidColorBrush>

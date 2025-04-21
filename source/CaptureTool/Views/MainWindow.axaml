@@ -16,7 +16,10 @@
     </Design.DataContext>
     <Grid RowDefinitions="Auto,*">
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Classes="nav-button" Background="Transparent" Margin="0 0 -5 0">
+            <Button Classes="nav-button" 
+                    Background="Transparent" 
+                    Margin="0 0 -5 0"
+                    Command="{Binding GoToUserLinkCommand}">
                 <Label Classes="icon" 
                        Content="&#xE4C2;"
                        FontFamily="{DynamicResource PhosphorFill}" FontSize="20"/>
@@ -30,7 +33,7 @@
                         <MenuItem>
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox />
+                                    <CheckBox IsChecked="{Binding Settings.LaunchAtStartup}"/>
                                     <TextBlock Text="Launch at Startup"/>
                                 </StackPanel>
                             </MenuItem.Header>
@@ -38,7 +41,7 @@
                         <MenuItem>
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox />
+                                    <CheckBox IsChecked="{Binding Settings.EnableSessionLogging}"/>
                                     <TextBlock Text="Enable Session Logging"/>
                                 </StackPanel>
                             </MenuItem.Header>
@@ -50,7 +53,7 @@
                         <MenuItem>
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox />
+                                    <CheckBox IsChecked="{Binding Settings.CaptureLabels}"/>
                                     <TextBlock Text="Capture Labels"/>
                                 </StackPanel>
                             </MenuItem.Header>
@@ -58,7 +61,7 @@
                         <MenuItem>
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox />
+                                    <CheckBox IsChecked="{Binding Settings.CaptureKeyboardInput}"/>
                                     <TextBlock Text="Capture Keyboard Input"/>
                                 </StackPanel>
                             </MenuItem.Header>
@@ -66,20 +69,20 @@
                         <MenuItem>
                             <MenuItem.Header>
                                 <StackPanel Orientation="Horizontal">
-                                    <CheckBox />
+                                    <CheckBox IsChecked="{Binding Settings.CaptureSpecialKeys}"/>
                                     <TextBlock Text="Capture Special Keys"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="Check for Updates"/>
-                    <MenuItem Header="About"/>
-                    <MenuItem Header="Exit"/>
+                    <MenuItem Header="About" />
+                    <MenuItem Header="Exit" Command="{Binding ExitCommand}"/>
                 </MenuItem>
             </Menu>
         </StackPanel>
     
-        <Border Grid.Row="1" Margin="10 20 10 10" CornerRadius="8" Background="Black">
+        <Border Grid.Row="1" Margin="10 15 10 10" CornerRadius="8" Background="Black">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="0">
                 <Image Source="/Assets/CaptureToolLogo.png"
                        Width="60" Height="60"
@@ -92,28 +95,37 @@
                            Foreground="White"
                            HorizontalAlignment="Center"
                            Margin="0,8,0,0" />
-                <Border Margin="0 25 0 110">
+                <Border Margin="0 30 0 110">
                     <StackPanel>
-                        <Button Classes="secondary" Width="270">
+                        <Button Classes="secondary" Width="270" Command="{Binding ToggleAudioTranscriptionCommand}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8">
                                 <Label Classes="icon" 
                                        Content="&#xE326;" 
                                        FontFamily="{DynamicResource Phosphor}" 
                                        FontSize="16"
-                                       Margin="0 3  0 0"/>
-                                <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}" Margin="0 4  0 0"/>
-                                <ToggleSwitch IsChecked="True" Margin="0 -5  0 0"/>
+                                       Margin="0 2  0 0"/>
+                                <TextBlock Text="Voice transcription" FontFamily="{DynamicResource InterBold}" Margin="0 5  0 0"/>
+                                <ToggleSwitch IsChecked="{Binding Settings.EnableVoiceTranscription}" 
+                                              Margin="0 -5  0 0"/>
                             </StackPanel>
                         </Button>
 
                         <Button Classes="primary" >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="2">
-                                <Label Classes="icon" Content="&#xE3EE;" FontFamily="{DynamicResource PhosphorFill}" />
-                                <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}" Margin="0 2  0 0"/>
+                                <Label Classes="icon"
+                                       Margin="0 -1 0 0"
+                                       Content="&#xE3EE;" 
+                                       FontFamily="{DynamicResource PhosphorFill}" 
+                                       FontSize="19"/>
+                                <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}" Margin="0 3  0 0"/>
                             </StackPanel>
                         </Button>
-
-                        <Button Classes="secondary" Content="Sign Out" FontFamily="{DynamicResource InterBold}"/>
+                        
+                        <!-- TODO: Fix button styling so that custom styling to center content isn't needed -->
+                        <Button Classes="secondary"
+                                Command="{Binding ExitCommand}">
+                            <TextBlock FontFamily="{DynamicResource InterBold}" Margin="0 4 0 0">Sign Out</TextBlock>
+                        </Button>
                     </StackPanel>
                 </Border>
             </StackPanel>
