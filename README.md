@@ -119,14 +119,34 @@ You can check progress and services inside the [`Services`](./source/CaptureTool
 
 ---
 
+## 🧠 Advanced Ideas + AI Considerations
+
+As I kept thinking about how to develop this tool beyond a simple screen capture, I started thinking about intelligent behavior like what's seen in Scribe and how it's accomplished, as well as how I could improve on it (if not done already). I plan on implementing some of these, others are still just food for thought:
+
+#### 🔘 Input Tracking
+- [ ] **Mouse Click Overlays**: Visually show mouse clicks in the final video for clarity.
+- [ ] **Event Logging**: Log each click and keystroke with timestamp and coordinates.
+- [ ] **Region Snapshots**: Capture a screenshot of the region around a click and timestamp for documentation.
+
+#### 🧠 Smart Action Detection with AI/Heuristics
+- [ ] **Click Filtering**: Use heuristics or ML to distinguish meaningful clicks from background noise.
+- [ ] **Short Clips for AI**: Instead of sending the whole video to an AI model, extract 1–2 second snippets around key events to minimize processing time and data.
+- [ ] **Computer Vision + Accessibility**: Combine computer vision (screenshot differences) with native accessibility APIs to interpret the UI — this could help identify actions like "opened dropdown" or "clicked toolbar" since a browser-like DOM isn't available
+- [ ] **Contextual Heuristics**:
+  - Example 1: If a click occurs near a button and within 500ms a modal or overlay appears, infer a "Launched Modal" action.
+  - Example 2: If a user clicks a hamburger menu icon and new items appear in a left-hand region, infer "Expanded Navigation Menu".
+
+---
+
 ## 🧠 Why I Built This
 
-This project was built as a reverse-engineered, developer-focused replica of the Scribe desktop app. I wanted to showcase:
+This project started as a reverse-engineered replica of the Scribe desktop app — but quickly turned into something more.
 
-- My UI skills (restyling controls, layouts, I learned a lot of the styling along the way)
-- My ability to architect scalable cross-platform applications
-- My drive to learn on the fly, even when I initially don’t know how to do something
-- My initiative to replicate a production-grade tool with zero access to its source
+I built this because:
+- I love figuring out how things work, and I wanted to push my UI skills by recreating Scribe's visuals and behavior from scratch
+- I wanted to architect something modular, cross-platform, and built to scale — not just a one-off demo
+- I learn best by doing. Styling buttons, building toggle switches, retemplating checkboxes are things I hadn’t done before this project, but figured it out through documentation, GitHub digging, tutorials, and lots of experimentation
+- I like challenges, especially when it really piques my curiosity. I didn’t have the Scribe source code, but I wanted to prove I could replicate the experience
 
 ---
 
