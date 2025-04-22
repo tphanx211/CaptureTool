@@ -14,10 +14,10 @@ This project is currently in progress as a technical showcase for an interview. 
 | Custom-themed buttons & toggles | ✅ Done      |
 | Application settings (DI + JSON persistence) | ✅ Done      |
 | Menu system w/ nested options | ✅ Done      |
-| Screen recording service       | 🔄 Interface defined |
-| Audio recording service        | 🔄 Interface defined |
-| Transcription service (Whisper integration) | 🔲 Planned    |
-| Muxing service (video + audio + optional subtitles) | 🔲 Planned    |
+| Screen recording service       | ✅ Done  |
+| Audio recording service        | ✅ Done  |
+| Transcription service (Whisper integration) | ✅ Done    |
+| Muxing service (video + audio + optional subtitles) | 🔄 In progress    |
 | Session-based folder output (timestamped) | 🔄 In progress |
 | Test and refactor for cross-platform functionality | 🔲 Planned    |
 | Audio device and screen selection | 🔲 Planned    |
@@ -89,7 +89,7 @@ Each recording creates a new folder under the user’s capture directory:
 
 ## 🚧 Current Status
 
-> The UI and application structure are fully implemented. Service interfaces are defined. Integration of FFmpeg and Whisper for screen/audio recording and transcription is next.
+> The main window UI and application structure is implemented. Service interfaces are defined. Recording and Audio services are implemented with hard-coded configuration. Transcription service is completed using an API call to Whisper - needs to be supplied a path to an OpenAI api key.
 
 You can check progress and services inside the [`Services`](./source/CaptureTool/Services) directory.
 
@@ -97,8 +97,8 @@ You can check progress and services inside the [`Services`](./source/CaptureTool
 
 ## 🗺️ Roadmap
 
-- [ ] Implement `ScreenRecordService` using FFmpeg
-- [ ] Implement `AudioRecordService` using FFmpeg
+- [x] Implement `ScreenRecordService` using FFmpeg
+- [x] Implement `AudioRecordService` using FFmpeg
 - [ ] Add basic `TranscriptionService` using Whisper
 - [ ] Add muxing pipeline to stitch audio + video + subtitles
 - [ ] Add start/stop recording logic via `CaptureService`
