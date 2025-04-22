@@ -23,6 +23,8 @@ This project is currently in progress as a technical showcase for an interview. 
 | Test and refactor for cross-platform functionality | 🔲 Planned    |
 | Audio device selection | 🔲 Planned    |
 | Logging service ( Serilog or NLog ) | 🔲 Planned    |
+| Refactor/explore with native windows media APIs for performance (NAudio, WinRT,  etc.) | 🔲 Planned    |
+
 
 ---
 
