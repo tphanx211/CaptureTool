@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace CaptureTool.Services.Screen;
@@ -8,7 +9,7 @@ public class ScreenRecordService : IScreenRecordService
 {
     private Process? _ffmpegProcess;
 
-    public Task StartRecordingAsync(string outputFilePath)
+    public Task StartRecordingAsync(string outputFilePath, Rectangle bounds)
     {
         /*
          -f gdigrab: use GDI screen capture on Windows TODO: test later with avfoundation for MacOS
@@ -28,8 +29,9 @@ public class ScreenRecordService : IScreenRecordService
         // TODO: This captures all screens... -i desktop works fine if there's only 1 monitor but in a multiple monitor setup need to figure
         // out how to get get the bounds/coordinates from all the different screens to specify in the ffmpeg call
 
-        var args = $"-f gdigrab -framerate 30 -offset_x 0 -offset_y 0 -video_size 3840x2160 -i desktop -c:v libx264 -pix_fmt yuv420p \"{outputFilePath}\""; 
-        // Hard coded to my monitor for now
+        var args = $"-f gdigrab -framerate 30 -offset_x {bounds.Left} -offset_y {bounds.Top} " +
+                    $"-video_size {bounds.Width}x{bounds.Height} -i desktop " +
+                    "-c:v libx264 -pix_fmt yuv420p \"{outputFilePath}\"";
         
         _ffmpegProcess = new Process
         {

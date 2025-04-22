@@ -36,7 +36,7 @@ public class CaptureService : ICaptureService
         _settingsService = settingsService;
     }
 
-    public async Task StartCaptureAsync()
+    public async Task StartCaptureAsync(MonitorInfo monitor)
     {
         var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         var folder = Path.Combine(
@@ -54,7 +54,7 @@ public class CaptureService : ICaptureService
         _outputPath = Path.Combine(folder, "final_output.mp4");
 
         await _audioService.StartRecordingAsync(_audioPath);
-        await _screenService.StartRecordingAsync(_videoPath);
+        await _screenService.StartRecordingAsync(_videoPath, monitor.Bounds);
     }
 
     public async Task StopCaptureAsync()

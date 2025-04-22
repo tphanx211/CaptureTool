@@ -38,7 +38,7 @@ public class ScreenDetectionService : IScreenDetectionService
                         {
                             monitors.Add(new MonitorInfo
                             {
-                                DeviceName = deviceName,
+                                DeviceName = GetScreenName(deviceName),
                                 Bounds = bounds,
                                 Screenshot = screenshot
                             });
@@ -114,5 +114,14 @@ public class ScreenDetectionService : IScreenDetectionService
             return null;
 
         return new Avalonia.Media.Imaging.Bitmap(ms); // Avalonia.Media.Imaging.Bitmap
+    }
+    
+    private static string GetScreenName(string deviceName)
+    {
+        if (string.IsNullOrWhiteSpace(deviceName))
+            return "Unknown Screen";
+
+        var match = System.Text.RegularExpressions.Regex.Match(deviceName, @"DISPLAY(\d+)");
+        return match.Success ? $"Screen {match.Groups[1].Value}" : "Unknown Screen";
     }
 }
