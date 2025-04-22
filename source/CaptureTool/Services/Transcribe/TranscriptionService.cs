@@ -15,6 +15,7 @@ public class TranscriptionService : ITranscriptionService
 {
     private readonly ISettingsService _settingsService;
     private readonly HttpClient _httpClient;
+    private string? _lastRawJson;
 
     public TranscriptionService(ISettingsService settingsService)
     {
@@ -42,6 +43,8 @@ public class TranscriptionService : ITranscriptionService
         response.EnsureSuccessStatusCode();
 
         var json = await response.Content.ReadAsStringAsync();
+        _lastRawJson = json;
+        
         var parsed = JsonSerializer.Deserialize<WhisperApiResponse>(json);
 
         return new TranscriptionResult
@@ -71,6 +74,18 @@ public class TranscriptionService : ITranscriptionService
 
         await File.WriteAllTextAsync(outputPath, srtContent);
         return outputPath;
+    }
+    
+    public async Task SaveRawResponseAsync(string outputPath)
+    {
+        if (string.IsNullOrWhiteSpace(_lastRawJson))
+            throw new InvalidOperationException("No transcription has been performed yet.");
+
+        var directory = Path.GetDirectoryName(outputPath);
+        if (!string.IsNullOrWhiteSpace(directory) && !Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
+
+        await File.WriteAllTextAsync(outputPath, _lastRawJson);
     }
 
     private static string ToSrtTime(double seconds)
