@@ -5,6 +5,8 @@ using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
 using CaptureTool.Services.Audio;
+using CaptureTool.Services.Capture;
+using CaptureTool.Services.Mux;
 using CaptureTool.Services.Screen;
 using CaptureTool.Services.Settings;
 using CaptureTool.Services.Transcribe;
@@ -30,6 +32,8 @@ public partial class App : Application
         collection.AddSingleton<ITranscriptionService, TranscriptionService>();
         collection.AddSingleton<IAudioRecordService, AudioRecordService>();
         collection.AddSingleton<IScreenRecordService, ScreenRecordService>();
+        collection.AddSingleton<IMuxingService, MuxingService>();
+        collection.AddSingleton<ICaptureService, CaptureService>();
         collection.AddSingleton<MainWindowViewModel>();
         
         var services = collection.BuildServiceProvider();
