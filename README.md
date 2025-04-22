@@ -19,7 +19,7 @@ This project is currently in progress as a technical showcase for an interview. 
 | Transcription service (Whisper integration) | ✅ Done    |
 | Muxing service (video + audio + optional subtitles) | ✅ Done    |
 | Session-based folder output (timestamped) | ✅ Done |
-| Screen selection | ✅ Done (Windows only) |
+| Screen selection | ✅ Done |
 | Test and refactor for cross-platform functionality | 🔲 Planned    |
 | Audio device selection | 🔲 Planned    |
 | Logging service ( Serilog or NLog ) | 🔲 Planned    |
