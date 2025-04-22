@@ -1,66 +1,80 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using NAudio.Wave;
 
 namespace CaptureTool.Services.Audio;
 
 public class AudioRecordService : IAudioRecordService
 {
-    private Process? _ffmpegProcess;
+    private WaveInEvent? _waveIn;
+    private WaveFileWriter? _writer;
+    private bool _disposed;
 
-    public Task StartRecordingAsync(string outputFilePath)
+    public Task StartRecordingAsync(string outputFilePath, AudioInputDevice inputDevice)
     {
-        // -f dshow: Use DirectShow from Windows to get audio input
-        // -i audio="device": Input device // TODO: implement device selection in a dropdown menu and pass it in here
-        // -c:a libmp3lame: Use LAME MP3 encoder
-        // -q:a 2: Audio quality VBR (0 = best, 9 = worst) — 2 is good quality
-        
-        //var args = $"-y -f dshow -i audio=\"Microphone (1080P Pro Stream)\" -c:a libmp3lame -q:a 2 \"{outputFilePath}\"";
-        var args = $"-y -loglevel warning -f dshow -i audio=\"Microphone (1080P Pro Stream)\" -c:a libmp3lame -q:a 2 \"{outputFilePath}\"";
-        
-        _ffmpegProcess = new Process
+        _waveIn = new WaveInEvent
         {
-            StartInfo = new ProcessStartInfo
-            {
-                FileName = "ffmpeg",
-                Arguments = args,
-                UseShellExecute = false,
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                CreateNoWindow = true
-            }
+            DeviceNumber = inputDevice.DeviceNumber,
+            WaveFormat = new WaveFormat(44100, 1) 
         };
-        
-        _ffmpegProcess.OutputDataReceived += (s, e) => Console.WriteLine("[FFmpeg stdout] " + e.Data);
-        _ffmpegProcess.ErrorDataReceived += (s, e) => Console.WriteLine("[FFmpeg stderr] " + e.Data);
 
-        _ffmpegProcess.Start();
-        _ffmpegProcess.BeginOutputReadLine();
-        _ffmpegProcess.BeginErrorReadLine();
-        
+        _writer = new WaveFileWriter(outputFilePath, _waveIn.WaveFormat);
+
+        _waveIn.DataAvailable += (s, e) =>
+        {
+            _writer?.Write(e.Buffer, 0, e.BytesRecorded);
+            _writer?.Flush();
+        };
+
+        _waveIn.RecordingStopped += (s, e) =>
+        {
+            _writer?.Dispose();
+            _writer = null;
+            _waveIn?.Dispose();
+            _waveIn = null;
+        };
+
+        _waveIn.StartRecording();
+
         return Task.CompletedTask;
     }
 
-    public async Task StopRecordingAsync()
+    public Task StopRecordingAsync()
     {
-        if (_ffmpegProcess is { HasExited: false })
+        _waveIn?.StopRecording();
+        return Task.CompletedTask;
+    }
+    
+    public List<AudioInputDevice> ListInputDevices()
+    {
+        var devices = new List<AudioInputDevice>();
+
+        for (int i = 0; i < WaveInEvent.DeviceCount; i++)
         {
-            try
-            {
-                await _ffmpegProcess.StandardInput.WriteLineAsync("q");
-                await _ffmpegProcess.WaitForExitAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Failed to stop FFmpeg gracefully: " + ex.Message);
-                _ffmpegProcess.Kill(true); 
-            }
-            finally
-            {
-                _ffmpegProcess.Dispose();
-                _ffmpegProcess = null;
-            }
+            var vaps = WaveInEvent.GetCapabilities(i);
+            devices.Add(new AudioInputDevice(i, vaps.ProductName));
+            Console.WriteLine($"{i}: {vaps.ProductName}");
         }
+        
+        return devices;
+    }
+    
+    private void DisposeWave()
+    {
+        _writer?.Dispose();
+        _writer = null;
+
+        _waveIn?.Dispose();
+        _waveIn = null;
+    }
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+        DisposeWave();
+        _disposed = true;
+        GC.SuppressFinalize(this);
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using CaptureTool.Services.Audio;
 using CaptureTool.Services.Mux;
@@ -53,7 +54,7 @@ public class CaptureService : ICaptureService
         
         _outputPath = Path.Combine(folder, "final_output.mp4");
 
-        await _audioService.StartRecordingAsync(_audioPath);
+        await _audioService.StartRecordingAsync(_audioPath, _audioService.ListInputDevices().First()); // Default device for now until device selection implemented
         await _screenService.StartRecordingAsync(_videoPath, monitor.Bounds);
     }
 
