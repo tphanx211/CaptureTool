@@ -4,6 +4,6 @@ namespace CaptureTool.Services.Screen;
 
 public interface IScreenRecordService
 {
-    Task StartRecordingAsync(string outputFilePath);
+    Task StartRecordingAsync(string outputFilePath, System.Drawing.Rectangle bounds);
     Task StopRecordingAsync();
 }

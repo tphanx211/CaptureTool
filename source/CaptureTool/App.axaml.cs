@@ -36,6 +36,9 @@ public partial class App : Application
         collection.AddSingleton<ICaptureService, CaptureService>();
         collection.AddSingleton<MainWindowViewModel>();
         
+        collection.AddTransient<IScreenDetectionService, ScreenDetectionService>();
+        collection.AddTransient<ScreenPickerViewModel>();
+        
         var services = collection.BuildServiceProvider();
         
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

@@ -62,4 +62,5 @@
     <StyleInclude Source="Controls/ButtonStyles.axaml"/>
     <StyleInclude Source="Controls/ToggleSwitchStyles.axaml"/>
     <StyleInclude Source="Controls/CheckBoxStyles.axaml"/>
+    <StyleInclude Source="Controls/ListBoxStyles.axaml"/>
 </Styles>

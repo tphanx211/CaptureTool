@@ -1,0 +1,63 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:vm="using:CaptureTool.ViewModels"
+        x:Class="CaptureTool.Views.ScreenPickerWindow"
+        Width="1030" Height="530"
+        Title="Select a screen to capture"
+        x:DataType="vm:ScreenPickerViewModel">
+    <Border Margin="10 40 10 10" CornerRadius="8" Background="Black">
+        <Grid RowDefinitions="45,*">
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button Classes="secondary"
+                            Command="{Binding LoadMonitorsCommand}">
+                        <TextBlock Text="&#xE094;" 
+                                   FontFamily="{DynamicResource PhosphorFill}" 
+                                   FontSize="16"
+                                   Margin="4 5 4 4"/>
+                    </Button>
+                    
+                    <Button Classes="primary" Command="{Binding StartCaptureCommand}">
+                        <TextBlock Text="Start Capture" 
+                                   FontFamily="{DynamicResource InterBold}" Margin="2 6 0  2"
+                                   FontSize="12"/>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <ScrollViewer Grid.Row="1" >
+                <StackPanel Margin="20">
+                    <TextBlock Text="Screens" FontSize="20" Margin="0 0 0 10"/>
+                    <ListBox Classes="screens"
+                             ItemsSource="{Binding Monitors}"
+                             SelectedItem="{Binding SelectedMonitor}"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+    
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="Gray" BorderThickness="1" Padding="2">
+                                    <StackPanel>
+                                        <Button Command="{Binding $parent[ItemsControl].((vm:ScreenPickerViewModel)DataContext).SelectMonitorCommand}" CommandParameter="{Binding}" >
+                                            <Image Source="{Binding Screenshot}" Width="310" Height="180" Stretch="UniformToFill"/>
+                                        </Button>
+                                        <TextBlock Text="{Binding DeviceName}" HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>

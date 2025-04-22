@@ -1,0 +1,14 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+        <Border Padding="20">
+            <!-- Add Controls for Previewer Here -->
+        </Border>
+    </Design.PreviewWith>
+
+    
+    <!-- need to debug, doesn't seem to work -->
+    <Style Selector="ListBox.screens > ListBoxItem:selected">
+        <Setter Property="Background" Value="{DynamicResource SecondaryAccent}"/>
+    </Style>
+</Styles>
