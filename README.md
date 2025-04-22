@@ -37,19 +37,22 @@ This project is currently in progress as a technical showcase for an interview. 
 CaptureTool is designed around clean separation of concerns and SOLID principles. The app is composed of the following services:
 
 ### `ICaptureService`
-High-level orchestrator that coordinates audio, screen, transcription, and muxing workflows.
+The central coordinator that manages the full lifecycle of a capture session — recording screen and audio, invoking transcription (if enabled), and muxing the result into a final `.mp4` file.
 
 ### `IScreenRecordService`
-Responsible for screen capture using configurable inputs (e.g., screen index, resolution, framerate | currently uses main desktop).
+Handles screen capture using FFmpeg with gdigrab. Accepts monitor bounds to support multi-display setups and targeted screen selection. Future plans include switching to Windows.Graphics.Capture or other native APIs for improved performance.
 
 ### `IAudioRecordService`
-Handles audio capture from a selected input device. (currently uses default)
+Captures audio input from the default input device using FFmpeg. Future plans include support for enumerating and selecting input devices via native libraries (e.g., `NAudio` or `Core Audio APIs`).
+
+### `IScreenDetectionService`
+Uses P/Invoke to call low-level Win32 APIs (`EnumDisplayMonitors`, `GetMonitorInfo`) and retrieve accurate monitor bounds and device names. Preview thumbnails are generated per monitor using FFmpeg’s `image2pipe` mode and rendered into Avalonia `Bitmap` objects.
 
 ### `ITranscriptionService`
-Processes recorded audio through Whisper or other engines to generate `.srt` and `.txt` transcripts.
+Transcribes captured audio using OpenAI’s Whisper API. Generates `.srt` subtitle files and plain `.txt` transcripts based on recognition results.
 
 ### `IMuxingService`
-Combines audio, video, and optionally hardcoded subtitles into a final `.mp4` file.
+Combines screen video, audio, and optionally hardcoded subtitles into a final `.mp4` using FFmpeg. Future plans include exploring native alternatives (e.g., `MediaFoundation`, `FFMediaToolkit`) for performance and better error handling.
 
 ### `ISettingsService`
 Manages persistent application settings using a local JSON file:
@@ -87,31 +90,66 @@ Each recording creates a new folder under the user’s capture directory:
 ## 🛠️ Tech Stack
 
 - **UI:** [Avalonia UI](https://avaloniaui.net/)
-- **MVVM:** CommunityToolkit.Mvvm
-- **DI:** Microsoft.Extensions.DependencyInjection
-- **Serialization:** System.Text.Json
-- **Recording (planned):** FFmpeg
+- **MVVM:** `CommunityToolkit.Mvvm`
+- **DI:** `Microsoft.Extensions.DependencyInjection`
+- **Serialization:** `System.Text.Json` 
+- **Screen Recording:** `FFmpeg` via CLI (`gdigrab`)
+- **Audio Recording:** `FFmpeg` via CLI (`dshow`)
+- **Subtitles and Transcription:** OpenAI Whisper API
+- **Muxing:**	FFmpeg to combine audio/video/subtitles
+- **Interop:** P/Invoke to access Win32 API (EnumDisplayMonitors, GetMonitorInfo) for screen detection
+- **Image Rendering:** Avalonia.Media.Imaging.Bitmap with FFmpeg image piping
+- **Packaging:** .NET 9.0 SDK — planned cross-platform support
+- **Future Exploration:**	Windows.Graphics.Capture, NAudio, MediaFoundation, FFMediaToolkit, etc.
 
 ---
 
 ## 🚧 Current Status
 
-> The main window UI and application structure is implemented. Service interfaces are defined. Recording and Audio services are implemented with hard-coded configuration. Transcription service is completed using an API call to Whisper - needs to be supplied a path to an OpenAI api key.
+The core capture pipeline is fully functional. When the user initiates capture, they are prompted with a screen picker that previews available displays. After selecting one, the app begins recording screen and audio, then transcribes and muxes the output into a final subtitle-burned `.mp4`.
 
-You can check progress and services inside the [`Services`](./source/CaptureTool/Services) directory.
+Implemented features:
+
+- ✅ **Audio + screen recording** using FFmpeg
+- ✅ **Screen selection window** with monitor previews (captured via FFmpeg)  
+- ✅ **Monitor detection** via Win32 `EnumDisplayMonitors` using P/Invoke  
+- ✅ **Transcription and SRT generation** using OpenAI Whisper
+- ✅ **Muxing** of audio, video, and optional subtitles into a final output
+- ✅ **Settings persistence** and MVVM-compliant UI
+
+Planned improvements:
+
+- 🔲 Audio device selection
+- 🔲 Performance improvements (FFmpeg muxing is relatively slow)
+- 🔲 Exploring lower-level/native Windows APIs for screen/audio (e.g., `Windows.Graphics.Capture`, `MediaCapture`, `NAudio`)
+- 🔲 Polishing UX and settings (e.g., default screen memory, real-time logs)
 
 ---
 
-## 🗺️ Roadmap
+## 🧩 Screen Detection (P/Invoke)
 
-- [x] Implement `ScreenRecordService` using FFmpeg
-- [x] Implement `AudioRecordService` using FFmpeg
-- [ ] Add basic `TranscriptionService` using Whisper
-- [ ] Add muxing pipeline to stitch audio + video + subtitles
-- [ ] Add start/stop recording logic via `CaptureService`
-- [ ] Implement audio device selection
-- [ ] Implement screen or app selection
-- [ ] Implement logging
+The screen detection feature leverages native Windows APIs (`EnumDisplayMonitors`, `GetMonitorInfo`) via P/Invoke to retrieve monitor bounds and device names. Screenshots for each display are then captured using FFmpeg's `gdigrab` input with `-video_size` and `-offset_x/y` parameters, piped directly into Avalonia's `Bitmap`.
+
+```csharp
+[DllImport("user32.dll")]
+private static extern bool EnumDisplayMonitors(...);
+
+[DllImport("user32.dll", CharSet = CharSet.Auto)]
+private static extern bool GetMonitorInfo(...);
+```
+
+This approach avoids WMI’s limitation (which often returns only a single monitor) and gives you precise control over how to display and label each connected screen.
+
+---
+
+## 🔧 Future Optimizations
+
+Though FFmpeg is highly flexible and portable, it introduces latency in muxing and screenshotting. Longer-term improvements may include:
+
+- Replacing **FFmpeg muxing** with native media APIs (e.g., `MediaFoundation`, `DirectShow`, or `FFMediaToolkit`)
+- Using `Windows.Graphics.Capture` for real-time capture instead of FFmpeg’s GDI-based grab
+- Swapping audio capture with `NAudio` for better latency control and device enumeration
+- Adding real-time preview overlays (keyboard/mouse indicators, timer, etc.)
 
 ---
 
@@ -122,6 +160,8 @@ You can check progress and services inside the [`Services`](./source/CaptureTool
 <img src="screenshots/ButtonPressAndHold.png" alt="Button Press & Hold" width="300"/>
 
 <img src="screenshots/Menu.png" alt="Dropdown menu & CheckBox" width="400"/>
+
+<img src="screenshots/ScreenPicker.png" alt="Screen Selection" width="400"/>
 </p>
 
 ---
