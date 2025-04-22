@@ -31,7 +31,7 @@ public class ScreenRecordService : IScreenRecordService
 
         var args = $"-f gdigrab -framerate 30 -offset_x {bounds.Left} -offset_y {bounds.Top} " +
                     $"-video_size {bounds.Width}x{bounds.Height} -i desktop " +
-                    "-c:v libx264 -pix_fmt yuv420p \"{outputFilePath}\"";
+                    $"-c:v libx264 -pix_fmt yuv420p \"{outputFilePath}\"";
         
         _ffmpegProcess = new Process
         {
