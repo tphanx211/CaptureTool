@@ -14,6 +14,7 @@ public partial class AppSettings : ObservableObject
     [ObservableProperty] private bool _enableVoiceTranscription;
     [ObservableProperty] private string _userLink = "https://www.linkedin.com/in/anthony-phan-b2263b123/";
     [ObservableProperty] private string _captureSaveLocation;
+    [ObservableProperty] private string _apiKeyPath = @"C:\Users\TonyH\ApiKey.txt";
 
     public AppSettings()
     {
