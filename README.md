@@ -2,7 +2,11 @@
 
 **CaptureTool** is a windows (cross-platform planned) desktop application built with Avalonia UI that records screen and audio, transcribes speech, and outputs a final video with optional subtitles — inspired by the functionality of [Scribe](https://scribehow.com/).
 
-This project is currently in progress as a technical showcase for an interview. While the full capture functionality is under development, the foundation has been designed to reflect best practices in architecture, modularity, and UI/UX parity with Scribe.
+This project is currently in progress as a technical showcase for an interview. he core capture functionality is now complete — screen and audio can be recorded in sync, sent for transcription via OpenAI's Whisper API, and muxed into a single subtitle-burned video output using FFmpeg. While the capture pipeline is fully functional, I'm planning for additional polish and features to expand my experience:
+- Audio input device selection
+- Screen/window selection improvements
+- Performance tuning for muxing (potentially replacing FFmpeg with more native libraries)
+- UX enhancements (logging, keyboard input tracking, click visualization, etc.)
 
 ---
 
