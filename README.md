@@ -17,8 +17,8 @@ This project is currently in progress as a technical showcase for an interview. 
 | Screen recording service       | ✅ Done  |
 | Audio recording service        | ✅ Done  |
 | Transcription service (Whisper integration) | ✅ Done    |
-| Muxing service (video + audio + optional subtitles) | 🔄 In progress    |
-| Session-based folder output (timestamped) | 🔄 In progress |
+| Muxing service (video + audio + optional subtitles) | ✅ Done    |
+| Session-based folder output (timestamped) | ✅ Done |
 | Test and refactor for cross-platform functionality | 🔲 Planned    |
 | Audio device and screen selection | 🔲 Planned    |
 | Logging service ( Serilog or NLog ) | 🔲 Planned    |

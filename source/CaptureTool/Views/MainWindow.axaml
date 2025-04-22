@@ -7,7 +7,7 @@
         Width="320" Height="530"
         x:Class="CaptureTool.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
+        Icon="/Assets/CaptureToolLogo.png"
         Title="CaptureTool">
 
     
@@ -110,14 +110,14 @@
                             </StackPanel>
                         </Button>
 
-                        <Button Classes="primary" >
+                        <Button Classes="primary" Command="{Binding ToggleCaptureCommand}">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="8" Margin="2">
                                 <Label Classes="icon"
                                        Margin="0 -1 0 0"
                                        Content="&#xE3EE;" 
                                        FontFamily="{DynamicResource PhosphorFill}" 
                                        FontSize="19"/>
-                                <TextBlock Text="Start Capture" FontFamily="{DynamicResource InterBold}" Margin="0 3  0 0"/>
+                                <TextBlock Text="{Binding CaptureText}" FontFamily="{DynamicResource InterBold}" Margin="0 3  0 0"/>
                             </StackPanel>
                         </Button>
                         
