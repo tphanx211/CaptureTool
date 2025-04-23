@@ -25,9 +25,9 @@ This project is currently in progress as a technical showcase for an interview. 
 | Session-based folder output (timestamped) | ✅ Done |
 | Screen selection | ✅ Done |
 | Test and refactor for cross-platform functionality | 🔲 Planned    |
-| Audio device selection | 🔲 Planned    |
+| Audio device selection | 🔄 In progress    |
 | Logging service ( Serilog or NLog ) | 🔲 Planned    |
-| Refactor/explore with native windows media APIs for performance (NAudio, WinRT,  etc.) | 🔲 Planned    |
+| Refactor/explore with native windows media APIs for performance (NAudio, WinRT,  etc.) | 🔄 In progress    |
 
 
 ---
