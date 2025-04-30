@@ -37,7 +37,7 @@ public class CaptureService : ICaptureService
         _settingsService = settingsService;
     }
 
-    public async Task StartCaptureAsync(MonitorInfo monitor)
+    public async Task StartCaptureAsync(MonitorInfo monitor, AudioInputDevice? audioInputDevice = null)
     {
         var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         var folder = Path.Combine(
@@ -54,7 +54,11 @@ public class CaptureService : ICaptureService
         
         _outputPath = Path.Combine(folder, "final_output.mp4");
 
-        await _audioService.StartRecordingAsync(_audioPath, _audioService.ListInputDevices().First()); // Default device for now until device selection implemented
+        // Use the provided audio device or fall back to the first available device
+        var inputDevice = audioInputDevice ?? _audioService.ListInputDevices().FirstOrDefault() 
+            ?? throw new InvalidOperationException("No audio input devices available");
+            
+        await _audioService.StartRecordingAsync(_audioPath, inputDevice);
         await _screenService.StartRecordingAsync(_videoPath, monitor.Bounds);
     }
 

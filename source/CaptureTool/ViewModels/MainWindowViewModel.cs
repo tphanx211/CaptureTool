@@ -25,22 +25,38 @@ public partial class MainWindowViewModel : ViewModelBase
     private readonly ISettingsService _settingsService;
     private readonly ICaptureService _captureService;
     private readonly IServiceProvider _serviceProvider;
+    private readonly IAudioRecordService _audioRecordService;
     
     [ObservableProperty] private string _captureText = "Start Capture";
     [ObservableProperty] private bool _isRecording;
+    [ObservableProperty] private List<AudioInputDevice> _audioInputDevices = new();
+    [ObservableProperty] private AudioInputDevice? _selectedAudioInputDevice;
 
     public MainWindowViewModel()
     {
         // for previewer
     }
 
-    public MainWindowViewModel(ISettingsService settings, ICaptureService  captureService, IServiceProvider serviceProvider)
+    public MainWindowViewModel(ISettingsService settings, ICaptureService captureService, IServiceProvider serviceProvider)
     {
         _captureService = captureService;
         _settingsService = settings;
         _serviceProvider = serviceProvider;
+        _audioRecordService = _serviceProvider.GetRequiredService<IAudioRecordService>();
         
         Settings = _settingsService.Settings;
+        
+        // Initialize audio devices
+        LoadAudioDevices();
+    }
+    
+    private void LoadAudioDevices()
+    {
+        AudioInputDevices = _audioRecordService.ListInputDevices();
+        if (AudioInputDevices.Count > 0)
+        {
+            SelectedAudioInputDevice = AudioInputDevices[0];
+        }
     }
 
     [RelayCommand]
@@ -91,7 +107,7 @@ public partial class MainWindowViewModel : ViewModelBase
             
             IsRecording = true;
             CaptureText = "Stop Capture";
-            await _captureService.StartCaptureAsync(pickerViewModel.SelectedMonitor);
+            await _captureService.StartCaptureAsync(pickerViewModel.SelectedMonitor, SelectedAudioInputDevice);
         }
         else
         {
