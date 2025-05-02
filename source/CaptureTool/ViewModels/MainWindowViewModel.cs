@@ -128,5 +128,51 @@ public partial class MainWindowViewModel : ViewModelBase
         }
     }
     
+    [RelayCommand]
+    private async Task SelectSaveLocationAsync()
+    {
+        if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            var dialog = new Avalonia.Controls.OpenFolderDialog
+            {
+                Title = "Select Save Location",
+                Directory = Settings.CaptureSaveLocation
+            };
+            
+            var result = await dialog.ShowAsync(desktop.MainWindow);
+            
+            if (!string.IsNullOrEmpty(result))
+            {
+                Settings.CaptureSaveLocation = result;
+                _settingsService.Save();
+            }
+        }
+    }
     
+    [RelayCommand]
+    private void OpenSaveLocation()
+    {
+        if (Directory.Exists(Settings.CaptureSaveLocation))
+        {
+            try
+            {
+                using var process = new System.Diagnostics.Process();
+                process.StartInfo = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = Settings.CaptureSaveLocation,
+                    UseShellExecute = true
+                };
+                process.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        else
+        {
+            Directory.CreateDirectory(Settings.CaptureSaveLocation);
+            OpenSaveLocation();
+        }
+    }
 }

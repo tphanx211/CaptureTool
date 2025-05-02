@@ -84,6 +84,19 @@
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
+                        <Separator/>
+                        <MenuItem IsEnabled="False">
+                            <MenuItem.Header>
+                                <StackPanel>
+                                    <TextBlock Text="Current Save Location:" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Settings.CaptureSaveLocation}" 
+                                               TextWrapping="Wrap" 
+                                               MaxWidth="250"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem Header="Select Save Location..." Command="{Binding SelectSaveLocationCommand}"/>
+                        <MenuItem Header="Open Save Location" Command="{Binding OpenSaveLocationCommand}"/>
                     </MenuItem>
                     <MenuItem Header="Check for Updates"/>
                     <MenuItem Header="About" />
